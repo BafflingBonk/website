@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SpellEditor } from './spell-editor';
+import { SpellEditorComponent } from './spell-editor.component';
 
 describe('SpellEditor', () => {
-  let component: SpellEditor;
-  let fixture: ComponentFixture<SpellEditor>;
+  let component: SpellEditorComponent;
+  let fixture: ComponentFixture<SpellEditorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SpellEditor],
+      imports: [SpellEditorComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SpellEditor);
+    fixture = TestBed.createComponent(SpellEditorComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
