@@ -1,45 +1,47 @@
-<div>
-    <h2>Spell Editor</h2>
-    <div>
+<form [formGroup]="spell" (ngSubmit)="submit()">
+
+  <h2>Spell Editor</h2>
+
+  <div>
     <p>Name</p>
-    <input type="text" placeholder="Spell Name" [formControl]="spell.controls.name">
-    </div>
+    <input type="text" placeholder="Spell Name" formControlName="name">
+  </div>
 
-    <div>
+  <div>
     <p>Description</p>
-    <input type="text" placeholder="Spell Description" [formControl]="spell.controls.description">
-    </div>
+    <input type="text" placeholder="Spell Description" formControlName="description">
+  </div>
 
-    <div>
+  <div>
     <p>Level</p>
 
     <div class="level-selector">
-        @for (lvl of levels; track lvl) {
+      @for (lvl of levels; track lvl) {
         <button
-            type="button"
-            [class.active]="spell.controls.level.value === lvl"
-            (click)="setLevel(lvl)"
+          type="button"
+          [class.active]="spell.controls.level.value === lvl"
+          (click)="setLevel(lvl)"
         >
-            {{ lvl }}
+          {{ lvl }}
         </button>
-        }
+      }
     </div>
-    </div>
+  </div>
 
-    <div>
+  <div>
     <p>School</p>
-    <select [formControl]="spell.controls.school">
-        @for (option of schoolOptions; track option.value) {
+    <select formControlName="school">
+      @for (option of schoolOptions; track option.value) {
         <option [value]="option.value">
-            {{ option.label }}
+          {{ option.label }}
         </option>
-        }
+      }
     </select>
-    </div>
+  </div>
 
-    <div>
-    <button type="button" (click)="submit()">
-        Save Spell
+  <div>
+    <button type="submit" [disabled]="spell.invalid">
+      Save Spell
     </button>
-    </div>
-</div>
+  </div>
+</form>
