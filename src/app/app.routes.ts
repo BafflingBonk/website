@@ -8,6 +8,14 @@ export const routes: Routes = [
   },
   {
     path: 'home',
-    loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent)
+    loadComponent: () =>
+      import('./features/home/home.component')
+        .then(m => m.HomeComponent)
+  },
+  {
+    path: 'dnd',
+    loadChildren: () =>
+      import('./features/dnd/dnd.routes')
+        .then(m => m.DND_ROUTES)
   }
 ];
