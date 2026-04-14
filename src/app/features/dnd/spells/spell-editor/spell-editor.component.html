@@ -1,23 +1,45 @@
-<p>spell-editor works!</p>
-
 <div>
+    <h2>Spell Editor</h2>
     <div>
-        <p>Name</p>
-        <input type="text" id="name" placeholder="Spell Name">
+    <p>Name</p>
+    <input type="text" placeholder="Spell Name" [formControl]="spell.controls.name">
     </div>
 
     <div>
-        <p>Description</p>
-        <input type="text" id="description" placeholder="Spell Description">
+    <p>Description</p>
+    <input type="text" placeholder="Spell Description" [formControl]="spell.controls.description">
     </div>
 
     <div>
-        <p>Level</p>
-        <input type="text" id="level" placeholder="Spell Level">
+    <p>Level</p>
+
+    <div class="level-selector">
+        @for (lvl of levels; track lvl) {
+        <button
+            type="button"
+            [class.active]="spell.controls.level.value === lvl"
+            (click)="setLevel(lvl)"
+        >
+            {{ lvl }}
+        </button>
+        }
+    </div>
     </div>
 
     <div>
-        <p>School</p>
-        <input type="dropdown" id="school" placeholder="Spell School">
+    <p>School</p>
+    <select [formControl]="spell.controls.school">
+        @for (option of schoolOptions; track option.value) {
+        <option [value]="option.value">
+            {{ option.label }}
+        </option>
+        }
+    </select>
+    </div>
+
+    <div>
+    <button type="button" (click)="submit()">
+        Save Spell
+    </button>
     </div>
 </div>
