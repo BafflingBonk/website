@@ -7,7 +7,7 @@ import { Spell } from '../models/spell.model';
   providedIn: 'root'
 })
 export class SpellService {
-  private apiUrl = 'http://localhost:3000/api/spells';
+  private apiUrl = '/api/spells';
 
   constructor(private http: HttpClient) {}
 
