@@ -13,9 +13,21 @@ export const routes: Routes = [
         .then(m => m.HomeComponent)
   },
   {
-    path: 'dnd',
+    path: 'art',
+    loadComponent: () =>
+      import('./features/art/art.component')
+        .then(m => m.ArtComponent)
+  },
+  {
+    path: 'tetris',
     loadChildren: () =>
-      import('./features/dnd/dnd.routes')
-        .then(m => m.DND_ROUTES)
+      import('./features/tetris/tetris.routes')
+        .then(m => m.TETRIS_ROUTES)
+  },
+  {
+    path: 'about',
+    loadComponent: () =>
+      import('./features/about/about.component')
+        .then(m => m.AboutComponent)
   }
 ];

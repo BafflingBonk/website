@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SpellEditorComponent } from './spell-editor.component';
+import { TetrisComponent } from './tetris.component';
 
-describe('SpellEditor', () => {
-  let component: SpellEditorComponent;
-  let fixture: ComponentFixture<SpellEditorComponent>;
+describe('TetrisComponent', () => {
+  let component: TetrisComponent;
+  let fixture: ComponentFixture<TetrisComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SpellEditorComponent],
+      imports: [TetrisComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SpellEditorComponent);
+    fixture = TestBed.createComponent(TetrisComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
