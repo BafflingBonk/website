@@ -41,3 +41,4 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           source: 'dist/website/browser/**'
           target: '/var/www/site'
+          strip_components: 3
