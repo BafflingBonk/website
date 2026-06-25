@@ -5,11 +5,14 @@
   <div class="artworks-container">
     @for (artwork of artworks; track artwork.id) {
       <div class="artwork-card" (click)="openArtwork(artwork)">
-        <img
-          class="artwork-image"
-          [src]="artwork.imageUrl"
-          [alt]="artwork.title"
-        />
+        <div class="artwork-image-wrapper">
+          <img
+            class="artwork-image"
+            [src]="artwork.imageUrl"
+            [alt]="artwork.title"
+          />
+        </div>
+
         <h5>{{ artwork.title }}</h5>
       </div>
     }
