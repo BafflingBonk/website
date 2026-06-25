@@ -1,38 +1,38 @@
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-  padding: 12px 20px;
-  background: var(--surface);
-  color: var(--text);
+    padding: 12px 20px;
+    background: var(--surface);
+    color: var(--text);
 }
 
 .left a {
-  margin-right: 16px;
-  color: var(--text);
-  text-decoration: none;
+    margin-right: 16px;
+    color: var(--text);
+    text-decoration: none;
 }
 
 .right {
-  position: relative;
+    position: relative;
 }
 
 .menu-btn {
-  background: transparent;
-  border: none;
-  font-size: 20px;
-  color: var(--text);
-  cursor: pointer;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: var(--text);
+    cursor: pointer;
 }
 
 .dropdown {
-  position: absolute;
-  right: 0;
-  top: 30px;
-  background: var(--surface);
-  border: 1px solid rgba(255,255,255,0.1);
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
+    position: absolute;
+    right: 0;
+    top: 30px;
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
 }
