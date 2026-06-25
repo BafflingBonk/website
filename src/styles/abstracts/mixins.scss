@@ -1,0 +1,31 @@
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin grid($cols, $gap: 16px) {
+  display: grid;
+  grid-template-columns: repeat($cols, 1fr);
+  gap: $gap;
+}
+
+// Responsive helper
+@mixin respond($breakpoint) {
+  @if $breakpoint == sm {
+    @media (max-width: 600px) { @content; }
+  }
+
+  @if $breakpoint == md {
+    @media (max-width: 900px) { @content; }
+  }
+
+  @if $breakpoint == lg {
+    @media (max-width: 1200px) { @content; }
+  }
+}

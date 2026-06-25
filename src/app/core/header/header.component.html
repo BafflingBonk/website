@@ -1,0 +1,17 @@
+<header class="header">
+  <div class="left">
+    <a routerLink="/">Home</a>
+    <a routerLink="/art">Art</a>
+  </div>
+
+  <div class="right">
+    <button class="menu-btn" (click)="toggleMenu()">⋯</button>
+
+    @if (menuOpen) {
+      <div class="dropdown">
+        <button (click)="setTheme('dark')">Dark</button>
+        <button (click)="setTheme('dark-blue')">Blue</button>
+      </div>
+    }
+  </div>
+</header>
