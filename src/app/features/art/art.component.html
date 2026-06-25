@@ -2,11 +2,31 @@
   <h2>Artworks</h2>
   <p>Here are some of our artworks:</p>
 
-<div class="artworks-container">
-  @for (artwork of artworks; track artwork.id) {
-    <div class="artwork-card">
-      <h5>{{ artwork.title }}</h5>
-      <img class="artwork-image" [src]="artwork.imageUrl" [alt]="artwork.title">
+  <div class="artworks-container">
+    @for (artwork of artworks; track artwork.id) {
+      <div class="artwork-card" (click)="openArtwork(artwork)">
+        <img
+          class="artwork-image"
+          [src]="artwork.imageUrl"
+          [alt]="artwork.title"
+        />
+        <h5>{{ artwork.title }}</h5>
+      </div>
+    }
+  </div>
+
+  @if (selectedArtwork) {
+    <div class="lightbox" (click)="closeArtwork()">
+      <img
+        class="lightbox-image"
+        [src]="selectedArtwork.imageUrl"
+        [alt]="selectedArtwork.title"
+        (click)="$event.stopPropagation()"
+      />
+
+      <div class="lightbox-title">
+        {{ selectedArtwork.title }}
+      </div>
     </div>
   }
 </div>
