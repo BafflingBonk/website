@@ -1,14 +1,12 @@
-<p>art works!</p>
+<div>
+  <h2>Artworks</h2>
+  <p>Here are some of our artworks:</p>
 
-<div>
-  <img src="/art/my_first_apple.png" alt="Apple" />
-</div>
-<div>
-  <img src="/art/first_jug.png" alt="Jug" />
-</div>
-<div>
-  <img src="/art/dark_castle_background.png" alt="Dark Castle Background" />
-</div>
-<div>
-  <img src="/art/mansion.png" alt="Mansion" />
+<div class="artworks-container">
+  @for (artwork of artworks; track artwork.id) {
+    <div class="artwork-card">
+      <h5>{{ artwork.title }}</h5>
+      <img class="artwork-image" [src]="artwork.imageUrl" [alt]="artwork.title">
+    </div>
+  }
 </div>

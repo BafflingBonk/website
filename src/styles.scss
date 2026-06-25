@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+/* Import style files */
+@use 'abstracts/variables';
+@use 'abstracts/mixins';
+@use 'abstracts/functions';
+
+@use 'base/reset';
+@use 'base/typography';
+@use 'base/global';
+
+@use 'themes/dark';
+@use 'themes/dark_blue';

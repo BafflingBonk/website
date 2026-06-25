@@ -1,0 +1,25 @@
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 $space-5;
+}
+
+.card {
+  background: $color-surface;
+  border-radius: $radius-md;
+  box-shadow: $shadow-sm;
+  padding: $space-5;
+}
+
+.button {
+  padding: $space-3 $space-5;
+  border-radius: $radius-sm;
+  background: $color-primary;
+  color: white;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background: darken($color-primary, 10%);
+  }
+}

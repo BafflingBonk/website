@@ -1,0 +1,14 @@
+:root[data-theme='dark-blue'] {
+  --bg: #0a0f1c;
+  --surface: #111a2e;
+  --text: #e8f0ff;
+  --muted: #93a4c7;
+
+  --primary: #3b82f6;
+  --accent: #60a5fa;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}

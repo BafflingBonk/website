@@ -1,0 +1,23 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: $font-family-base;
+  background: $color-bg;
+  color: $color-text;
+  line-height: 1.5;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
