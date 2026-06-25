@@ -1,9 +1,14 @@
 @use '../abstracts/variables' as v;
 
+:root {
+  --page-padding: clamp(16px, 3vw, 32px);
+  --content-max-width: 1400px;
+}
+
 .container {
-  max-width: 1100px;
+  max-width: var(--content-max-width);
   margin: 0 auto;
-  padding: 0 v.$space-5;
+  padding: 0 var(--page-padding);
 }
 
 .card {
