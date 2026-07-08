@@ -3,13 +3,14 @@
     justify-content: space-between;
     align-items: center;
 
-    padding: 12px 20px;
+    padding: 20px 300px;
     background: var(--surface);
     color: var(--text);
+    margin-bottom: 16px;
 }
 
 .left a {
-    margin-right: 16px;
+    margin-right: 32px;
     color: var(--text);
     text-decoration: none;
 }
