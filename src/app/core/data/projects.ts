@@ -22,7 +22,7 @@ export const PROJECTS: Project[] = [
   {
     id: 'website',
     title: 'This website',
-    summary:'Playground and portfolio, built with Angular and SCSS: lazy-loaded pages, ',
+    summary:'Playground and portfolio, built with Angular and SCSS as a lazy-loaded single-page application.',
     status: 'in-development',
     tags: ['Angular', 'TypeScript', 'SCSS', 'GitHub Actions'],
     links: [],
