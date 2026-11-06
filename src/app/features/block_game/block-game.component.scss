@@ -1,0 +1,250 @@
+@use 'abstracts/variables' as v;
+@use 'abstracts/mixins' as m;
+
+:host {
+  // Largest cell that fits the screen's width and height (20 rows plus the page around them).
+  --cell: clamp(
+    14px,
+    min(calc((100vw - 2 * var(--page-padding) - 4px) / 10), calc((100dvh - 300px) / 20)),
+    30px
+  );
+  --c1: #29b6f6;
+  --c2: #ffd54f;
+  --c3: #ab47bc;
+  --c4: #66bb6a;
+  --c5: #ef5350;
+  --c6: #5c6bc0;
+  --c7: #ffa726;
+  display: block;
+}
+
+.game {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: v.$space-6;
+}
+
+.board-wrap {
+  position: relative;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, var(--cell));
+  grid-auto-rows: var(--cell);
+  padding: 2px;
+  border: 1px solid var(--border);
+  border-radius: v.$radius-md;
+  // Always dark, like a screen, so the piece colours read the same in every theme.
+  background: #0b0d11;
+  box-shadow: var(--shadow-md);
+}
+
+.cell {
+  width: var(--cell);
+  height: var(--cell);
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+
+  &.ghost {
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.25);
+  }
+
+  @for $i from 1 through 7 {
+    &[data-color='#{$i}'] {
+      background: var(--c#{$i});
+      box-shadow:
+        inset 0 3px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -3px 0 rgba(0, 0, 0, 0.25);
+    }
+  }
+}
+
+.overlay {
+  @include m.flex-column;
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  gap: v.$space-3;
+  padding: v.$space-4;
+  border-radius: v.$radius-md;
+  background: rgba(8, 10, 14, 0.6);
+  backdrop-filter: blur(2px);
+  text-align: center;
+
+  h2 {
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  }
+}
+
+.hint,
+.final-score {
+  color: #e6e6e6;
+}
+
+.final-score {
+  font-size: v.$font-size-lg;
+  font-weight: 700;
+}
+
+.new-best {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.panel {
+  @include m.flex-column;
+  gap: v.$space-5;
+  width: 200px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: v.$space-3;
+}
+
+.stat,
+.next {
+  @include m.card;
+  @include m.flex-column;
+  padding: v.$space-3;
+}
+
+.label {
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.value {
+  font-family: v.$font-family-mono;
+  font-size: 1.35rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.preview {
+  @include m.flex-column;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding-top: v.$space-2;
+  --cell: 20px;
+}
+
+.preview-row {
+  display: flex;
+}
+
+.pause-button {
+  justify-content: center;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: v.$space-2 v.$space-3;
+  align-items: center;
+  font-size: v.$font-size-sm;
+
+  dd {
+    color: var(--muted);
+  }
+}
+
+.touch-controls {
+  display: none;
+  justify-content: center;
+  gap: v.$space-2;
+  margin-top: v.$space-4;
+
+  button {
+    @include m.card;
+    flex: 1 1 0;
+    max-width: 56px;
+    height: 52px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    touch-action: manipulation;
+    user-select: none;
+
+    &:active {
+      background: var(--surface-raised);
+    }
+  }
+}
+
+@include m.respond(md) {
+  :host {
+    // Phones also stack the stats and touch controls around the board.
+    --cell: clamp(
+      14px,
+      min(calc((100vw - 2 * var(--page-padding) - 4px) / 10), calc((100dvh - 400px) / 20)),
+      30px
+    );
+  }
+
+  .page-header p,
+  .panel .pause-button {
+    display: none;
+  }
+
+  .game {
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: v.$space-4;
+  }
+
+  .panel {
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    gap: v.$space-2;
+  }
+
+  .stats {
+    grid-template-columns: repeat(4, 1fr);
+    gap: v.$space-2;
+    flex: 4;
+  }
+
+  .stat,
+  .next {
+    padding: v.$space-2;
+  }
+
+  .next {
+    flex: 1;
+  }
+
+  .value {
+    font-size: 1.05rem;
+  }
+
+  .preview {
+    --cell: 11px;
+    min-height: 28px;
+  }
+
+  .controls {
+    display: none;
+  }
+}
+
+@media (pointer: coarse), (max-width: 900px) {
+  .touch-controls {
+    display: flex;
+  }
+}
+
+@media (pointer: coarse) {
+  .hint {
+    display: none;
+  }
+}

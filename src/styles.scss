@@ -1,11 +1,8 @@
-/* Import style files */
-@use 'abstracts/variables';
-@use 'abstracts/mixins';
-@use 'abstracts/functions';
+// Global styles. Themes first so every later rule can use their custom properties.
+@use 'themes/dark';
+@use 'themes/dark_blue';
+@use 'themes/light';
 
 @use 'base/reset';
 @use 'base/typography';
 @use 'base/global';
-
-@use 'themes/dark';
-@use 'themes/dark_blue';

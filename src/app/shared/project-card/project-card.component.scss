@@ -1,0 +1,67 @@
+@use 'abstracts/variables' as v;
+@use 'abstracts/mixins' as m;
+
+:host {
+  display: block;
+}
+
+.project {
+  @include m.card;
+  @include m.flex-column;
+  gap: v.$space-3;
+  height: 100%;
+  padding: v.$space-5;
+  transition:
+    border-color v.$transition-fast,
+    transform v.$transition-fast;
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--primary) 50%, var(--border));
+    transform: translateY(-2px);
+  }
+}
+
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: v.$space-2;
+}
+
+.status {
+  padding: 2px v.$space-2;
+  border-radius: 999px;
+  background: var(--surface-raised);
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+
+  &[data-status='released'] {
+    background: color-mix(in srgb, #22c55e 18%, transparent);
+    color: #22c55e;
+  }
+
+  &[data-status='in-development'] {
+    background: color-mix(in srgb, var(--accent) 18%, transparent);
+    color: var(--accent);
+  }
+}
+
+p {
+  flex: 1;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.$space-2;
+  list-style: none;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.$space-2;
+  margin-top: v.$space-2;
+}

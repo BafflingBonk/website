@@ -1,39 +1,224 @@
+@use 'abstracts/variables' as v;
+@use 'abstracts/mixins' as m;
+
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    padding: 20px 300px;
-    background: var(--surface);
-    color: var(--text);
-    margin-bottom: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(10px);
 }
 
-.left a {
-    margin-right: 32px;
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: v.$space-5;
+  height: v.$header-height;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: v.$space-2;
+  color: var(--text);
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-decoration: none;
+
+  &:hover {
     color: var(--text);
+  }
+}
+
+// A tiny 2×2 "pixel" logo in the theme colours.
+.brand-mark {
+  width: 18px;
+  height: 18px;
+  background:
+    linear-gradient(var(--primary) 0 0) top left / 50% 50% no-repeat,
+    linear-gradient(var(--accent) 0 0) bottom right / 50% 50% no-repeat,
+    var(--surface-raised);
+  border-radius: 3px;
+}
+
+.nav {
+  display: flex;
+  gap: v.$space-1;
+  margin-left: auto;
+
+  a {
+    padding: v.$space-2 v.$space-3;
+    border-radius: v.$radius-sm;
+    color: var(--muted);
+    font-weight: 500;
     text-decoration: none;
+    transition:
+      color v.$transition-fast,
+      background-color v.$transition-fast;
+
+    &:hover {
+      color: var(--text);
+      background: var(--surface-raised);
+    }
+
+    &.active {
+      color: var(--text);
+      background: var(--surface);
+      box-shadow: inset 0 -2px 0 var(--primary);
+    }
+  }
 }
 
-.right {
-    position: relative;
+.icon-button {
+  @include m.flex-center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid transparent;
+  border-radius: v.$radius-md;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+
+  &:hover,
+  &[aria-expanded='true'] {
+    background: var(--surface-raised);
+    border-color: var(--border);
+  }
 }
 
-.menu-btn {
-    background: transparent;
-    border: none;
-    font-size: 20px;
-    color: var(--text);
-    cursor: pointer;
+.nav-toggle {
+  display: none;
 }
 
-.dropdown {
+.burger,
+.burger::before,
+.burger::after {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition:
+    transform v.$transition-fast,
+    background-color v.$transition-fast;
+}
+
+.burger {
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
     position: absolute;
-    right: 0;
-    top: 30px;
-    background: var(--surface);
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 8px;
+    left: 0;
+  }
+
+  &::before {
+    top: -6px;
+  }
+
+  &::after {
+    top: 6px;
+  }
+
+  &.open {
+    background: transparent;
+
+    &::before {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    &::after {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+  }
+}
+
+.theme-picker {
+  position: relative;
+}
+
+.theme-menu {
+  @include m.card;
+  position: absolute;
+  right: 0;
+  top: calc(100% + #{v.$space-2});
+  display: flex;
+  flex-direction: column;
+  min-width: 180px;
+  padding: v.$space-1;
+  box-shadow: var(--shadow-md);
+
+  button {
     display: flex;
+    align-items: center;
+    gap: v.$space-3;
+    padding: v.$space-2 v.$space-3;
+    border: none;
+    border-radius: v.$radius-sm;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover {
+      background: var(--surface-raised);
+    }
+
+    &.selected {
+      font-weight: 600;
+    }
+  }
+}
+
+.swatch {
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+
+  // Fixed colours on purpose: each swatch previews its own theme, not the current one.
+  &[data-swatch='dark'] {
+    background: linear-gradient(135deg, #171a21 50%, #4f8cff 50%);
+  }
+
+  &[data-swatch='dark-blue'] {
+    background: linear-gradient(135deg, #111a2e 50%, #60a5fa 50%);
+  }
+
+  &[data-swatch='light'] {
+    background: linear-gradient(135deg, #ffffff 50%, #2563eb 50%);
+  }
+}
+
+@include m.respond(md) {
+  .header-inner {
+    gap: v.$space-2;
+  }
+
+  .nav-toggle {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .nav {
+    position: absolute;
+    top: v.$header-height;
+    left: 0;
+    right: 0;
+    display: none;
     flex-direction: column;
+    padding: v.$space-2 var(--page-padding) v.$space-4;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    box-shadow: var(--shadow-md);
+
+    &.open {
+      display: flex;
+    }
+
+    a {
+      padding: v.$space-3;
+    }
+  }
 }

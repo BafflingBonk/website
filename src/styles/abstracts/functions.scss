@@ -1,15 +1,6 @@
 @use 'sass:math';
 
+// Converts pixels to rem, assuming the browser default of 16px.
 @function rem($px) {
   @return math.div($px, 16) * 1rem;
-}
-
-// Slightly darken color safely
-@function darken-by($color, $amount: 10%) {
-  @return darken($color, $amount);
-}
-
-// Opacity helper
-@function alpha($color, $opacity) {
-  @return rgba($color, $opacity);
 }

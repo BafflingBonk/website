@@ -1,100 +1,155 @@
-.artworks-container {
+@use 'abstracts/variables' as v;
+@use 'abstracts/mixins' as m;
+
+.gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 200px);
-  justify-content: center;
-  gap: 24px;
-  padding: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+  gap: v.$space-5;
+  list-style: none;
+
+  @include m.respond(sm) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: v.$space-3;
+  }
 }
 
-.artwork-card {
-  width: 200px;
-  height: 200px;
-
-  background: #1e1e1e;
-  border-radius: 14px;
-  padding: 10px;
-
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-
-  display: flex;
-  flex-direction: column;
-
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.artwork-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
-  cursor: pointer;
-}
-
-.artwork-image-wrapper {
-  flex: 1;                /* takes available space */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.artwork {
+  @include m.card;
+  @include m.flex-column;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
+  padding: 0;
+  text-align: left;
+  cursor: zoom-in;
+  transition:
+    transform v.$transition-fast,
+    border-color v.$transition-fast;
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--primary) 50%, var(--border));
+  }
 }
 
-.artwork-image {
-  max-width: 100%;
-  max-height: 100%;
+.frame {
+  @include m.flex-center;
+  aspect-ratio: 1;
+  padding: v.$space-5;
+  // Faint checkerboard so transparent pixels read as transparent.
+  background: repeating-conic-gradient(var(--surface-raised) 0 25%, var(--surface) 0 50%) 0 0 / 16px
+    16px;
 
-  width: auto;
-  height: auto;
+  img {
+    @include m.pixelated;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
 
-  object-fit: contain;
-  display: block;
+.caption {
+  @include m.flex-column;
+  flex: 1;
+  padding: v.$space-3 v.$space-4;
+  border-top: 1px solid var(--border);
+}
+
+.title {
+  font-weight: 600;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: v.$font-size-sm;
 }
 
 .lightbox {
+  @include m.flex-center;
   position: fixed;
   inset: 0;
-
-  background: rgba(0, 0, 0, 0.85);
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
   z-index: 1000;
-  padding: 24px;
+  padding: v.$space-7 v.$space-8;
+  background: var(--overlay);
+  backdrop-filter: blur(4px);
+  cursor: zoom-out;
 
-  cursor: pointer;
+  @include m.respond(sm) {
+    padding: v.$space-7 v.$space-4;
+  }
+
+  figure {
+    @include m.flex-column;
+    align-items: center;
+    gap: v.$space-4;
+    max-width: 100%;
+    max-height: 100%;
+    cursor: default;
+  }
+
+  img {
+    @include m.pixelated;
+    width: min(80vmin, 720px);
+    max-height: 70vh;
+    object-fit: contain;
+  }
+
+  figcaption {
+    @include m.flex-column;
+    align-items: center;
+    gap: v.$space-1;
+    color: #e6e6e6;
+    text-align: center;
+
+    span,
+    p {
+      color: #b4bcc8;
+      font-size: v.$font-size-sm;
+    }
+  }
 }
 
-.lightbox-image {
-  max-width: 90%;
-  max-height: 80%;
-
-  border-radius: 12px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-
-  cursor: default;
-}
-
-.lightbox-title {
-  margin-top: 12px;
+.lightbox-close,
+.lightbox-nav {
+  @include m.flex-center;
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
   color: #fff;
-  font-size: 18px;
-  opacity: 0.9;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
 }
 
-@media (max-width: 768px) {
-  .artworks-container {
-    grid-template-columns: repeat(auto-fill, 160px);
-    gap: 16px;
-    padding: 16px;
+.lightbox-close {
+  top: v.$space-4;
+  right: v.$space-4;
+  width: 40px;
+  height: 40px;
+}
+
+.lightbox-nav {
+  top: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 1.8rem;
+  line-height: 1;
+  transform: translateY(-50%);
+
+  &.prev {
+    left: v.$space-4;
   }
 
-  .artwork-card {
-    width: 160px;
-    height: 160px;
+  &.next {
+    right: v.$space-4;
   }
 
-  .artwork-image {
-    height: 110px;
+  @include m.respond(sm) {
+    top: auto;
+    bottom: v.$space-4;
+    transform: none;
   }
 }

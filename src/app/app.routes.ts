@@ -1,33 +1,43 @@
 import { Routes } from '@angular/router';
 
+const SITE_NAME = 'BafflingBonk';
+
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    title: SITE_NAME,
+    loadComponent: () => import('./features/home/home.component').then((m) => m.HomeComponent),
   },
   {
-    path: 'home',
+    path: 'projects',
+    title: `Projects · ${SITE_NAME}`,
     loadComponent: () =>
-      import('./features/home/home.component')
-        .then(m => m.HomeComponent)
+      import('./features/projects/projects.component').then((m) => m.ProjectsComponent),
   },
   {
     path: 'art',
-    loadComponent: () =>
-      import('./features/art/art.component')
-        .then(m => m.ArtComponent)
+    title: `Art · ${SITE_NAME}`,
+    loadComponent: () => import('./features/art/art.component').then((m) => m.ArtComponent),
   },
   {
-    path: 'tetris',
-    loadChildren: () =>
-      import('./features/tetris/tetris.routes')
-        .then(m => m.TETRIS_ROUTES)
+    path: 'block-game',
+    title: `Block Game · ${SITE_NAME}`,
+    loadComponent: () =>
+      import('./features/block_game/block-game.component').then((m) => m.BlockGameComponent),
   },
   {
     path: 'about',
+    title: `About · ${SITE_NAME}`,
+    loadComponent: () => import('./features/about/about.component').then((m) => m.AboutComponent),
+  },
+  // Old addresses that may still be linked or bookmarked.
+  { path: 'home', redirectTo: '', pathMatch: 'full' },
+  {
+    path: 'not-found',
+    title: `Page not found · ${SITE_NAME}`,
     loadComponent: () =>
-      import('./features/about/about.component')
-        .then(m => m.AboutComponent)
-  }
+      import('./features/not_found/not-found.component').then((m) => m.NotFoundComponent),
+  },
+  { path: '**', redirectTo: 'not-found' },
 ];

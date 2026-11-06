@@ -1,17 +1,66 @@
 <header class="header">
-  <div class="left">
-    <a routerLink="/">Home</a>
-    <a routerLink="/art">Art</a>
-  </div>
+  <div class="header-inner container">
+    <a class="brand" routerLink="/">
+      <span class="brand-mark" aria-hidden="true"></span>
+      {{ siteName }}
+    </a>
 
-  <div class="right">
-    <button class="menu-btn" (click)="toggleMenu()">⋯</button>
+    <button
+      class="icon-button nav-toggle"
+      type="button"
+      aria-controls="site-nav"
+      [attr.aria-expanded]="navOpen()"
+      (click)="toggleNav()"
+    >
+      <span class="visually-hidden">Menu</span>
+      <span class="burger" [class.open]="navOpen()" aria-hidden="true"></span>
+    </button>
 
-    @if (menuOpen) {
-      <div class="dropdown">
-        <button (click)="setTheme('dark')">Dark</button>
-        <button (click)="setTheme('dark-blue')">Blue</button>
-      </div>
-    }
+    <nav id="site-nav" class="nav" [class.open]="navOpen()" aria-label="Main">
+      @for (link of links; track link.path) {
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+          [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+          >{{ link.label }}</a
+        >
+      }
+    </nav>
+
+    <div class="theme-picker">
+      <button
+        class="icon-button"
+        type="button"
+        aria-haspopup="true"
+        [attr.aria-expanded]="themeMenuOpen()"
+        (click)="toggleThemeMenu()"
+      >
+        <span class="visually-hidden">Choose theme</span>
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M12 3a9 9 0 1 0 0 18c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01a1.5 1.5 0 0 1 1.12-2.49H16a5 5 0 0 0 5-5C21 6.58 16.97 3 12 3Zm-5.5 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm3-4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm3 4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z"
+          />
+        </svg>
+      </button>
+
+      @if (themeMenuOpen()) {
+        <div class="theme-menu" role="menu">
+          @for (option of themes; track option.id) {
+            <button
+              type="button"
+              role="menuitemradio"
+              [attr.aria-checked]="theme() === option.id"
+              [class.selected]="theme() === option.id"
+              (click)="setTheme(option.id)"
+            >
+              <span class="swatch" [attr.data-swatch]="option.id" aria-hidden="true"></span>
+              {{ option.label }}
+            </button>
+          }
+        </div>
+      }
+    </div>
   </div>
 </header>

@@ -1,21 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { About } from './about.component';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { AboutComponent } from './about.component';
 
-describe('About', () => {
-  let component: About;
-  let fixture: ComponentFixture<About>;
-
-  beforeEach(async () => {
+describe('AboutComponent', () => {
+  it('renders the heading and focus areas', async () => {
     await TestBed.configureTestingModule({
-      imports: [About],
+      imports: [AboutComponent],
+      providers: [provideRouter([])],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(About);
-    component = fixture.componentInstance;
+    const fixture = TestBed.createComponent(AboutComponent);
     await fixture.whenStable();
-  });
+    const element: HTMLElement = fixture.nativeElement;
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(element.querySelector('h1')?.textContent).toContain('About');
+    expect(element.querySelectorAll('.areas .card').length).toBe(
+      fixture.componentInstance.focusAreas.length,
+    );
   });
 });

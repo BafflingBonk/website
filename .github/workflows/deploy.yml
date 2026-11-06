@@ -19,7 +19,10 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm test -- --watch=false
 
       - name: Build Angular
         run: npm run build -- --configuration production

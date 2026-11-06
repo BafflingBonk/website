@@ -1,43 +1,46 @@
-import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { DOCUMENT, Injectable, inject, signal } from '@angular/core';
 
-type Theme = 'dark' | 'dark-blue';
+export const THEMES = [
+  { id: 'dark', label: 'Dark' },
+  { id: 'dark-blue', label: 'Midnight blue' },
+  { id: 'light', label: 'Light' },
+] as const;
 
+export type Theme = (typeof THEMES)[number]['id'];
+
+const STORAGE_KEY = 'theme';
+const DEFAULT_THEME: Theme = 'dark';
+
+/** Sets `data-theme` on `<html>`; the colours live in `src/styles/themes/`. */
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
-  private renderer: Renderer2;
-  private currentTheme: Theme = 'dark';
+  private readonly document = inject(DOCUMENT);
+  readonly theme = signal<Theme>(readSavedTheme() ?? DEFAULT_THEME);
 
-  constructor(rendererFactory: RendererFactory2) {
-    this.renderer = rendererFactory.createRenderer(null, null);
+  constructor() {
+    this.apply(this.theme());
+  }
 
-    const saved = localStorage.getItem('theme') as Theme | null;
-    if (saved) {
-      this.setTheme(saved);
-    } else {
-      this.setTheme('dark');
+  setTheme(theme: Theme): void {
+    this.theme.set(theme);
+    this.apply(theme);
+    try {
+      localStorage.setItem(STORAGE_KEY, theme);
+    } catch {
+      // Storage can be blocked (private mode, disabled cookies); the theme still applies for this visit.
     }
   }
 
-  setTheme(theme: Theme) {
-    this.currentTheme = theme;
-
-    const html = document.documentElement;
-
-    // remove previous
-    this.renderer.removeAttribute(html, 'data-theme');
-
-    // set new
-    this.renderer.setAttribute(html, 'data-theme', theme);
-
-    localStorage.setItem('theme', theme);
+  private apply(theme: Theme): void {
+    this.document.documentElement.setAttribute('data-theme', theme);
   }
+}
 
-  toggleTheme() {
-    const next = this.currentTheme === 'dark' ? 'dark-blue' : 'dark';
-    this.setTheme(next);
-  }
-
-  getTheme() {
-    return this.currentTheme;
+function readSavedTheme(): Theme | null {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return THEMES.find((theme) => theme.id === saved)?.id ?? null;
+  } catch {
+    return null;
   }
 }

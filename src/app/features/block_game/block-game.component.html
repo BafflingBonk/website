@@ -1,0 +1,120 @@
+<section class="page">
+  <header class="page-header">
+    <span class="eyebrow">Playground</span>
+    <h1>Block Game</h1>
+    <p>Stack the falling pieces and fill rows to clear them. The game speeds up every 10 lines.</p>
+  </header>
+
+  <div class="game">
+    <div class="board-wrap">
+      <div
+        class="board"
+        role="img"
+        [attr.aria-label]="'Game board. Score ' + score() + ', level ' + level() + '.'"
+      >
+        @for (cell of cells(); track $index) {
+          <div class="cell" [attr.data-color]="cell.color" [class.ghost]="cell.ghost"></div>
+        }
+      </div>
+
+      @switch (state()) {
+        @case ('ready') {
+          <div class="overlay">
+            <h2>Ready?</h2>
+            <button class="button" type="button" (click)="start()">Start game</button>
+            <p class="hint">or press <kbd>Enter</kbd></p>
+          </div>
+        }
+        @case ('paused') {
+          <div class="overlay">
+            <h2>Paused</h2>
+            <button class="button" type="button" (click)="togglePause()">Resume</button>
+            <p class="hint">or press <kbd>P</kbd></p>
+          </div>
+        }
+        @case ('over') {
+          <div class="overlay">
+            <h2>Game over</h2>
+            <p class="final-score">{{ score() }} points</p>
+            @if (score() > 0 && score() === bestScore()) {
+              <p class="new-best">New best score!</p>
+            }
+            <button class="button" type="button" (click)="start()">Play again</button>
+          </div>
+        }
+      }
+    </div>
+
+    <aside class="panel" aria-label="Game status">
+      <div class="stats">
+        <div class="stat">
+          <span class="label">Score</span>
+          <span class="value">{{ score() }}</span>
+        </div>
+        <div class="stat">
+          <span class="label">Best</span>
+          <span class="value">{{ bestScore() }}</span>
+        </div>
+        <div class="stat">
+          <span class="label">Lines</span>
+          <span class="value">{{ lines() }}</span>
+        </div>
+        <div class="stat">
+          <span class="label">Level</span>
+          <span class="value">{{ level() }}</span>
+        </div>
+      </div>
+
+      <div class="next">
+        <span class="label">Next</span>
+        <div class="preview" aria-hidden="true">
+          @for (row of preview(); track $index) {
+            <div class="preview-row">
+              @for (color of row; track $index) {
+                <div class="cell" [attr.data-color]="color"></div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <button
+        class="button button--secondary pause-button"
+        type="button"
+        [disabled]="state() === 'ready' || state() === 'over'"
+        (click)="togglePause()"
+      >
+        {{ state() === 'paused' ? 'Resume' : 'Pause' }}
+      </button>
+
+      <dl class="controls">
+        <dt><kbd>←</kbd> <kbd>→</kbd></dt>
+        <dd>Move</dd>
+        <dt><kbd>↑</kbd></dt>
+        <dd>Rotate</dd>
+        <dt><kbd>↓</kbd></dt>
+        <dd>Soft drop</dd>
+        <dt><kbd>Space</kbd></dt>
+        <dd>Hard drop</dd>
+        <dt><kbd>P</kbd></dt>
+        <dd>Pause</dd>
+      </dl>
+    </aside>
+  </div>
+
+  <div class="touch-controls" aria-label="Touch controls">
+    <button type="button" aria-label="Move left" (pointerdown)="press('left')">◀</button>
+    <button type="button" aria-label="Rotate" (pointerdown)="press('rotate')">⟳</button>
+    <button type="button" aria-label="Move right" (pointerdown)="press('right')">▶</button>
+    <button type="button" aria-label="Soft drop" (pointerdown)="press('softDrop')">▼</button>
+    <button type="button" aria-label="Hard drop" (pointerdown)="press('hardDrop')">⤓</button>
+    <button
+      type="button"
+      [attr.aria-label]="state() === 'paused' ? 'Resume' : 'Pause'"
+      [disabled]="state() === 'ready' || state() === 'over'"
+      (pointerdown)="togglePause()"
+    >
+      {{ state() === 'paused' ? '▶' : '❚❚' }}
+    </button>
+  </div>
+</section>

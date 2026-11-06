@@ -1,35 +1,70 @@
-<div>
-  <h2>Artworks</h2>
-  <p>Here are some of our artworks:</p>
+<section class="page">
+  <header class="page-header">
+    <span class="eyebrow">Gallery</span>
+    <h1>Art</h1>
+    <p>
+      Pixel art I've made, partly for my games and partly for practice. Click a piece to see it up
+      close.
+    </p>
+  </header>
 
-  <div class="artworks-container">
-    @for (artwork of artworks; track artwork.id) {
-      <div class="artwork-card" (click)="openArtwork(artwork)">
-        <div class="artwork-image-wrapper">
-          <img
-            class="artwork-image"
-            [src]="artwork.imageUrl"
-            [alt]="artwork.title"
-          />
-        </div>
+  <ul class="gallery">
+    @for (artwork of artworks; track artwork.id; let index = $index) {
+      <li>
+        <button class="artwork" type="button" (click)="open(index)">
+          <span class="frame">
+            <img [src]="artwork.imageUrl" [alt]="artwork.title" loading="lazy" />
+          </span>
+          <span class="caption">
+            <span class="title">{{ artwork.title }}</span>
+            <span class="meta">{{ artwork.author }}</span>
+          </span>
+        </button>
+      </li>
+    }
+  </ul>
+</section>
 
-        <h5>{{ artwork.title }}</h5>
-      </div>
+@if (selected(); as artwork) {
+  <div
+    class="lightbox"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="artwork.title"
+    (click)="close()"
+  >
+    <button #closeButton class="lightbox-close" type="button" aria-label="Close" (click)="close()">
+      ✕
+    </button>
+
+    <figure (click)="$event.stopPropagation()">
+      <img [src]="artwork.imageUrl" [alt]="artwork.title" />
+      <figcaption>
+        <strong>{{ artwork.title }}</strong>
+        <span>{{ artwork.author }} · {{ artwork.createdAt | date: 'MMMM y' }}</span>
+        @if (artwork.description) {
+          <p>{{ artwork.description }}</p>
+        }
+      </figcaption>
+    </figure>
+
+    @if (artworks.length > 1) {
+      <button
+        class="lightbox-nav prev"
+        type="button"
+        aria-label="Previous artwork"
+        (click)="step(-1); $event.stopPropagation()"
+      >
+        ‹
+      </button>
+      <button
+        class="lightbox-nav next"
+        type="button"
+        aria-label="Next artwork"
+        (click)="step(1); $event.stopPropagation()"
+      >
+        ›
+      </button>
     }
   </div>
-
-  @if (selectedArtwork) {
-    <div class="lightbox" (click)="closeArtwork()">
-      <img
-        class="lightbox-image"
-        [src]="selectedArtwork.imageUrl"
-        [alt]="selectedArtwork.title"
-        (click)="$event.stopPropagation()"
-      />
-
-      <div class="lightbox-title">
-        {{ selectedArtwork.title }}
-      </div>
-    </div>
-  }
-</div>
+}

@@ -1,13 +1,28 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Website</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
-  <app-root></app-root>
-</body>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <title>BafflingBonk</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Portfolio of BafflingBonk: web and indie game development, pixel art and a block game to play in the browser."
+    />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <script>
+      // Apply the saved theme before Angular boots, so the page doesn't flash the default one.
+      // Keep the key and ids in sync with ThemeService.
+      try {
+        var theme = localStorage.getItem('theme');
+        if (theme === 'dark' || theme === 'dark-blue' || theme === 'light') {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+      } catch (error) {}
+    </script>
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
 </html>

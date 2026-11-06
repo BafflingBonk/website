@@ -1,0 +1,28 @@
+<article class="project">
+  <div class="top">
+    <h3>{{ project().title }}</h3>
+    <span class="status" [attr.data-status]="project().status">{{ statusLabel() }}</span>
+  </div>
+
+  <p>{{ project().summary }}</p>
+
+  <ul class="tags" aria-label="Technologies">
+    @for (tag of project().tags; track tag) {
+      <li class="tag">{{ tag }}</li>
+    }
+  </ul>
+
+  @if (project().links.length > 0) {
+    <div class="links">
+      @for (link of project().links; track link.url) {
+        @if (isInternal(link.url)) {
+          <a class="button" [routerLink]="link.url">{{ link.label }}</a>
+        } @else {
+          <a class="button button--secondary" [href]="link.url" target="_blank" rel="noopener">
+            {{ link.label }}
+          </a>
+        }
+      }
+    </div>
+  }
+</article>

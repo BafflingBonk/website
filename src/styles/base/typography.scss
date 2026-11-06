@@ -1,23 +1,58 @@
 @use '../abstracts/variables' as v;
 
-h1, h2, h3, h4 {
-  font-weight: 600;
+body {
+  font-family: v.$font-family-base;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--text);
+  font-weight: 700;
   line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: clamp(2rem, 5vw, 3rem);
 }
 
 h2 {
-  font-size: 1.75rem;
+  font-size: clamp(1.4rem, 3vw, 1.75rem);
 }
 
 h3 {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
 }
 
 p {
-  color: v.$color-muted;
+  color: var(--muted);
   font-size: v.$font-size-md;
+}
+
+a {
+  color: var(--primary);
+  text-underline-offset: 3px;
+
+  &:hover {
+    color: var(--primary-hover);
+  }
+}
+
+kbd {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 0 0.4em;
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: v.$radius-sm;
+  background: var(--surface-raised);
+  color: var(--text);
+  font-family: v.$font-family-mono;
+  font-size: 0.8em;
+  line-height: 1.6;
+  text-align: center;
 }

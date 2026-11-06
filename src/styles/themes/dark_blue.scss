@@ -1,14 +1,20 @@
 :root[data-theme='dark-blue'] {
+  color-scheme: dark;
+
   --bg: #0a0f1c;
   --surface: #111a2e;
+  --surface-raised: #18233c;
+  --border: #22304f;
   --text: #e8f0ff;
   --muted: #93a4c7;
 
   --primary: #3b82f6;
+  --primary-hover: #2f6fde;
+  --on-primary: #ffffff;
   --accent: #60a5fa;
-}
+  --danger: #f87171;
 
-body {
-  background: var(--bg);
-  color: var(--text);
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --overlay: rgba(4, 8, 18, 0.88);
 }

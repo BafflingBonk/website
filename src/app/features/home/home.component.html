@@ -1,13 +1,61 @@
-<div>
-    <h1>Welcome to the Home Page!</h1>
+<section class="hero">
+  <span class="eyebrow">Hi, I'm {{ profile.name }}</span>
+  <h1>{{ profile.tagline }}</h1>
+  <p class="intro">{{ profile.intro }}</p>
+  <div class="actions">
+    <a class="button" routerLink="/projects">See my projects</a>
+    <a class="button button--secondary" routerLink="/block-game">Play the block game</a>
+  </div>
+  @if (profile.links.length > 0) {
+    <ul class="profile-links">
+      @for (link of profile.links; track link.url) {
+        <li>
+          <a
+            [href]="link.url"
+            [attr.target]="link.url.startsWith('http') ? '_blank' : null"
+            rel="noopener"
+            >{{ link.label }}</a
+          >
+        </li>
+      }
+    </ul>
+  }
+</section>
 
-    <div>
-        <p>I demand a sandwich!</p>
-    </div>
+<section class="section">
+  <div class="tiles">
+    @for (section of sections; track section.path) {
+      <a class="tile" [routerLink]="section.path">
+        <h2>{{ section.title }}</h2>
+        <p>{{ section.text }}</p>
+        <span class="more" aria-hidden="true">→</span>
+      </a>
+    }
+  </div>
+</section>
 
-    <div>
-        <button routerLink="/art">
-            My Art Journey
-        </button>
-    </div>
-</div>
+<section class="section">
+  <div class="section-head">
+    <h2>Featured projects</h2>
+    <a routerLink="/projects">All projects →</a>
+  </div>
+  <div class="project-grid">
+    @for (project of projects; track project.id) {
+      <app-project-card [project]="project" />
+    }
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Recent art</h2>
+    <a routerLink="/art">Open the gallery →</a>
+  </div>
+  <div class="art-strip">
+    @for (artwork of artworks; track artwork.id) {
+      <a class="art-thumb" routerLink="/art" [attr.aria-label]="artwork.title">
+        <img [src]="artwork.imageUrl" [alt]="artwork.title" loading="lazy" />
+      </a>
+    }
+  </div>
+</section>

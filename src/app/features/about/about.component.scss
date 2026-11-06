@@ -1,0 +1,22 @@
+@use 'abstracts/variables' as v;
+
+.section-title {
+  margin: v.$space-7 0 v.$space-4;
+}
+
+.areas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: v.$space-4;
+
+  h3 {
+    margin-bottom: v.$space-2;
+  }
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.$space-3;
+  list-style: none;
+}

@@ -1,3 +1,5 @@
+@use 'variables' as v;
+
 @mixin flex-center {
   display: flex;
   align-items: center;
@@ -9,23 +11,40 @@
   flex-direction: column;
 }
 
-@mixin grid($cols, $gap: 16px) {
-  display: grid;
-  grid-template-columns: repeat($cols, 1fr);
-  gap: $gap;
-}
-
-// Responsive helper
+// Responsive helper: styles for screens up to the given size.
 @mixin respond($breakpoint) {
   @if $breakpoint == sm {
-    @media (max-width: 600px) { @content; }
+    @media (max-width: 600px) {
+      @content;
+    }
+  } @else if $breakpoint == md {
+    @media (max-width: 900px) {
+      @content;
+    }
+  } @else if $breakpoint == lg {
+    @media (max-width: 1200px) {
+      @content;
+    }
+  } @else {
+    @error "Unknown breakpoint #{$breakpoint}; use sm, md or lg.";
   }
+}
 
-  @if $breakpoint == md {
-    @media (max-width: 900px) { @content; }
-  }
+@mixin focus-ring {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
 
-  @if $breakpoint == lg {
-    @media (max-width: 1200px) { @content; }
-  }
+// A raised panel; use the `.card` class in templates, this mixin in component styles.
+@mixin card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: v.$radius-lg;
+  box-shadow: var(--shadow-sm);
+}
+
+// Keeps pixel art crisp when it is scaled up.
+@mixin pixelated {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }

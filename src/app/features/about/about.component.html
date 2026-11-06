@@ -1,5 +1,43 @@
-<h1>ABOUT</h1>
+<section class="page">
+  <header class="page-header">
+    <span class="eyebrow">About</span>
+    <h1>About this site</h1>
+    <p>
+      This website is a personal creative project showcasing my work, ideas, and experimental
+      digital tools. It includes a combination of artistic content, writing, and interactive systems
+      I have built for personal use and sharing.
+    </p>
+  </header>
 
-<p>This website is a personal creative project showcasing my work, ideas, and experimental digital tools. It includes a combination of artistic content, writing, and interactive systems I have built for personal use and sharing.</p>
+  <h2 class="section-title">What I work on</h2>
+  <div class="areas">
+    @for (area of focusAreas; track area.title) {
+      <article class="card">
+        <h3>{{ area.title }}</h3>
+        <p>{{ area.text }}</p>
+      </article>
+    }
+  </div>
 
-
+  <h2 class="section-title">Get in touch</h2>
+  @if (profile.links.length > 0) {
+    <ul class="links">
+      @for (link of profile.links; track link.url) {
+        <li>
+          <a
+            class="button button--secondary"
+            [href]="link.url"
+            [attr.target]="link.url.startsWith('http') ? '_blank' : null"
+            rel="noopener"
+            >{{ link.label }}</a
+          >
+        </li>
+      }
+    </ul>
+  } @else {
+    <p>
+      Contact details are coming soon. In the meantime, have a look at my
+      <a routerLink="/projects">projects</a>.
+    </p>
+  }
+</section>

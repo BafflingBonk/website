@@ -1,0 +1,130 @@
+@use 'abstracts/variables' as v;
+@use 'abstracts/mixins' as m;
+
+.hero {
+  padding: v.$space-8 0 v.$space-7;
+
+  h1 {
+    max-width: 18ch;
+    font-size: clamp(2.2rem, 6vw, 3.6rem);
+  }
+
+  @include m.respond(sm) {
+    padding-top: v.$space-7;
+  }
+}
+
+.intro {
+  max-width: 58ch;
+  margin-top: v.$space-4;
+  font-size: v.$font-size-lg;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.$space-3;
+  margin-top: v.$space-6;
+}
+
+.profile-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.$space-4;
+  margin-top: v.$space-5;
+  list-style: none;
+}
+
+.section {
+  padding: v.$space-6 0;
+}
+
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: v.$space-2;
+  margin-bottom: v.$space-5;
+
+  a {
+    font-weight: 600;
+    text-decoration: none;
+  }
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: v.$space-4;
+}
+
+.tile {
+  @include m.card;
+  position: relative;
+  display: block;
+  padding: v.$space-5;
+  color: inherit;
+  text-decoration: none;
+  transition:
+    border-color v.$transition-fast,
+    transform v.$transition-fast;
+
+  h2 {
+    font-size: v.$font-size-lg;
+    margin-bottom: v.$space-2;
+  }
+
+  &:hover {
+    color: inherit;
+    border-color: color-mix(in srgb, var(--primary) 50%, var(--border));
+    transform: translateY(-2px);
+
+    .more {
+      transform: translateX(4px);
+    }
+  }
+}
+
+.more {
+  position: absolute;
+  top: v.$space-5;
+  right: v.$space-5;
+  color: var(--primary);
+  transition: transform v.$transition-fast;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: v.$space-4;
+
+  @include m.respond(sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.art-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: v.$space-4;
+}
+
+.art-thumb {
+  @include m.card;
+  @include m.flex-center;
+  aspect-ratio: 1;
+  padding: v.$space-4;
+  transition: transform v.$transition-fast;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  img {
+    @include m.pixelated;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}

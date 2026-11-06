@@ -1,32 +1,119 @@
 @use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
 
 :root {
-  --page-padding: clamp(16px, 3vw, 32px);
-  --content-max-width: 1400px;
+  --page-padding: clamp(16px, 4vw, 32px);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition:
+    background-color v.$transition-fast,
+    color v.$transition-fast;
+}
+
+:focus-visible {
+  @include m.focus-ring;
 }
 
 .container {
-  max-width: var(--content-max-width);
+  max-width: v.$content-max-width;
   margin: 0 auto;
   padding: 0 var(--page-padding);
 }
 
+// Vertical rhythm for a routed page.
+.page {
+  padding: v.$space-7 0 v.$space-8;
+
+  @include m.respond(sm) {
+    padding-top: v.$space-6;
+  }
+}
+
+.page-header {
+  margin-bottom: v.$space-6;
+
+  p {
+    max-width: 60ch;
+    margin-top: v.$space-3;
+    font-size: v.$font-size-lg;
+  }
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: v.$space-2;
+  color: var(--accent);
+  font-size: v.$font-size-sm;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .card {
-  background: v.$color-surface;
-  border-radius: v.$radius-md;
-  box-shadow: v.$shadow-sm;
+  @include m.card;
   padding: v.$space-5;
 }
 
 .button {
+  display: inline-flex;
+  align-items: center;
+  gap: v.$space-2;
   padding: v.$space-3 v.$space-5;
-  border-radius: v.$radius-sm;
-  background: v.$color-primary;
-  color: white;
-  border: none;
+  border: 1px solid transparent;
+  border-radius: v.$radius-md;
+  background: var(--primary);
+  color: var(--on-primary);
+  font-weight: 600;
+  text-decoration: none;
   cursor: pointer;
+  transition:
+    background-color v.$transition-fast,
+    transform v.$transition-fast;
 
   &:hover {
-    background: darken(v.$color-primary, 10%);
+    background: var(--primary-hover);
+    color: var(--on-primary);
   }
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.button--secondary {
+  background: var(--surface-raised);
+  border-color: var(--border);
+  color: var(--text);
+
+  &:hover {
+    background: var(--border);
+    color: var(--text);
+  }
+}
+
+.tag {
+  display: inline-block;
+  padding: 2px v.$space-2;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
