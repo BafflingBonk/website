@@ -37,4 +37,22 @@ export const ARTWORKS: Artwork[] = [
     updatedAt: new Date('2026-06-25'),
     author: 'BafflingBonk, WafflingWonk',
   },
+  {
+    id: 5,
+    title: 'Oozy',
+    description: 'A mutant from Mutant Odyssey.',
+    imageUrl: '/art/oozy.png',
+    createdAt: new Date('2025-04-01'),
+    updatedAt: new Date('2026-10-22'),
+    author: 'BafflingBonk',
+  },
+  {
+    id: 6,
+    title: 'Lumau',
+    description: 'A mutant from Mutant Odyssey.',
+    imageUrl: '/art/lumau.png',
+    createdAt: new Date('2026-10-23'),
+    updatedAt: new Date('2026-10-23'),
+    author: 'BafflingBonk',
+  },
 ];

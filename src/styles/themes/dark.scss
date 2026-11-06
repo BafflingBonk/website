@@ -3,20 +3,24 @@
 :root[data-theme='dark'] {
   color-scheme: dark;
 
-  --bg: #0f1115;
-  --surface: #171a21;
-  --surface-raised: #1f232c;
-  --border: #2a2f3a;
-  --text: #e6e6e6;
-  --muted: #9aa4b2;
+  // Near-black with a violet tint; purple for actions, warm orange as the contrast accent.
+  --bg: #100d17;
+  --surface: #18141f;
+  --surface-raised: #211c2b;
+  --border: #2d2639;
+  --text: #ece8f4;
+  --muted: #a39cb4;
 
-  --primary: #4f8cff;
-  --primary-hover: #3a78ef;
+  // Buttons need a deep purple for white text; links need a light one on the dark background.
+  --primary: #7c3aed;
+  --primary-hover: #6d28d9;
   --on-primary: #ffffff;
+  --link: #b794ff;
+  --link-hover: #cdb4ff;
   --accent: #ffb86b;
   --danger: #ff5c5c;
 
   --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.25);
   --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.4);
-  --overlay: rgba(5, 6, 9, 0.85);
+  --overlay: rgba(8, 5, 14, 0.88);
 }

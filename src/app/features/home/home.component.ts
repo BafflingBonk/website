@@ -17,23 +17,25 @@ const FEATURED_ART_COUNT = 4;
 export class HomeComponent {
   readonly profile = PROFILE;
   readonly projects = PROJECTS.slice(0, FEATURED_PROJECT_COUNT);
-  readonly artworks = ARTWORKS.slice(0, FEATURED_ART_COUNT);
+  readonly artworks = [...ARTWORKS]
+    .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())
+    .slice(0, FEATURED_ART_COUNT);
 
   readonly sections = [
     {
       path: '/projects',
       title: 'Projects',
-      text: 'Indie games and tools I am building, from first prototype to playable.',
+      text: 'Indie games and tools I am building.',
     },
     {
       path: '/art',
       title: 'Art',
-      text: 'Pixel art: sprites, objects and backgrounds, many of them made for my games.',
+      text: 'Trying my hand at creating Pixel art.',
     },
     {
       path: '/block-game',
       title: 'Block Game',
-      text: 'A small falling-block puzzle game you can play right here in the browser.',
+      text: 'A small falling-block puzzle game that I made to learn game development.',
     },
   ];
 }

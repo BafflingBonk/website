@@ -31,15 +31,11 @@
   }
 }
 
-// A tiny 2×2 "pixel" logo in the theme colours.
+// Oozy, the site's mascot (same sprite as the favicon).
 .brand-mark {
-  width: 18px;
-  height: 18px;
-  background:
-    linear-gradient(var(--primary) 0 0) top left / 50% 50% no-repeat,
-    linear-gradient(var(--accent) 0 0) bottom right / 50% 50% no-repeat,
-    var(--surface-raised);
-  border-radius: 3px;
+  @include m.pixelated;
+  width: 28px;
+  height: 28px;
 }
 
 .nav {
@@ -65,7 +61,7 @@
     &.active {
       color: var(--text);
       background: var(--surface);
-      box-shadow: inset 0 -2px 0 var(--primary);
+      box-shadow: inset 0 -2px 0 var(--link);
     }
   }
 }
@@ -179,7 +175,7 @@
 
   // Fixed colours on purpose: each swatch previews its own theme, not the current one.
   &[data-swatch='dark'] {
-    background: linear-gradient(135deg, #171a21 50%, #4f8cff 50%);
+    background: linear-gradient(135deg, #18141f 50%, #b794ff 50%);
   }
 
   &[data-swatch='dark-blue'] {
