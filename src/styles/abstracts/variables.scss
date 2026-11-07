@@ -19,6 +19,9 @@ $font-family-base:
   Roboto,
   sans-serif;
 $font-family-mono: ui-monospace, 'Cascadia Code', Consolas, monospace;
+// Mutant Odyssey's pixel fonts (`base/fonts.scss`): Silkscreen for short names, VT323 for codes.
+$font-family-pixel: 'Silkscreen', $font-family-mono;
+$font-family-terminal: 'VT323', $font-family-mono;
 
 $font-size-sm: 0.875rem;
 $font-size-md: 1rem;

@@ -29,6 +29,7 @@ Formatting uses Prettier; the settings are in [.prettierrc](.prettierrc).
 | `/`           | `features/home/HomeComponent`              | Intro, section tiles, featured projects, recent art |
 | `/projects`   | `features/projects/ProjectsComponent`      | All projects from `core/data/projects.ts`         |
 | `/art`        | `features/art/ArtComponent`                | Pixel-art gallery with a lightbox                 |
+| `/mutant-odyssey/palette` | `features/palette/PaletteComponent` | Mutant Odyssey's colour palette: ramps, neutrals and a download for Aseprite |
 | `/block-game` | `features/block_game/BlockGameComponent`   | The block game                                    |
 | `/about`      | `features/about/AboutComponent`            | About the site, focus areas, contact links        |
 | `/not-found`  | `features/not_found/NotFoundComponent`     | Shown for every unknown address                   |
@@ -71,6 +72,7 @@ src/
 │       ├── home/
 │       ├── projects/
 │       ├── art/
+│       ├── palette/            # Palette page, the .gpl export
 │       ├── block_game/         # Engine + component
 │       ├── about/
 │       └── not_found/
@@ -80,7 +82,8 @@ src/
 │   └── themes/                 # dark.scss, dark_blue.scss, light.scss
 └── styles.scss                 # Global stylesheet entry
 public/
-└── art/                        # Gallery images, served at /art/...
+├── art/                        # Gallery images, served at /art/...
+└── fonts/                      # Silkscreen and VT323 from Mutant Odyssey (SIL Open Font License)
 ```
 
 `src/styles` is on the SCSS include path (`stylePreprocessorOptions` in [angular.json](angular.json)), so a component stylesheet can write `@use 'abstracts/variables' as v;` without a relative path.
@@ -111,6 +114,10 @@ Add an entry to [src/app/core/data/projects.ts](src/app/core/data/projects.ts). 
      author: 'BafflingBonk',
    }
    ```
+
+### Change the Mutant Odyssey palette
+
+Edit [src/app/core/data/palettes.ts](src/app/core/data/palettes.ts); the page and the downloadable `.gpl` both come from it. The game keeps the same colours in `assets/palettes/mutant_odyssey.gpl`, so change both. Tests check that every colour is unique.
 
 ### Add a theme
 

@@ -16,6 +16,12 @@ export const routes: Routes = [
       import('./features/projects/projects.component').then((m) => m.ProjectsComponent),
   },
   {
+    path: 'mutant-odyssey/palette',
+    title: `Mutant Odyssey Palette · ${SITE_NAME}`,
+    loadComponent: () =>
+      import('./features/palette/palette.component').then((m) => m.PaletteComponent),
+  },
+  {
     path: 'art',
     title: `Art · ${SITE_NAME}`,
     loadComponent: () => import('./features/art/art.component').then((m) => m.ArtComponent),

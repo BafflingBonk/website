@@ -8,7 +8,10 @@ export const PROJECTS: Project[] = [
       'A pixel-art roguelike creature collector. Between runs players return to a hub in the style of classic console RPGs.',
     status: 'in-development',
     tags: ['Godot 4', 'C#', 'Pixel art', 'Roguelike'],
-    links: [{ label: 'Follow me!', url: 'https://www.reddit.com/user/BafflingBonk' }],
+    links: [
+      { label: 'Follow me!', url: 'https://www.reddit.com/user/BafflingBonk' },
+      { label: 'Colour palette', url: '/mutant-odyssey/palette' },
+    ],
   },
   {
     id: 'block-game',

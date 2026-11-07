@@ -1,0 +1,137 @@
+@use 'abstracts/variables' as v;
+@use 'abstracts/mixins' as m;
+
+.section-title {
+  margin: v.$space-7 0 v.$space-3;
+}
+
+.section-text {
+  max-width: 60ch;
+  margin-bottom: v.$space-4;
+}
+
+.sheet {
+  display: grid;
+  gap: v.$space-4;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr);
+  gap: v.$space-4;
+  align-items: start;
+
+  @include m.respond(sm) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: v.$space-2;
+  }
+}
+
+// The game's own type: Silkscreen for names, VT323 for codes.
+.row-name {
+  padding-top: v.$space-3;
+  font-family: v.$font-family-pixel;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0;
+
+  @include m.respond(sm) {
+    padding-top: 0;
+  }
+}
+
+.heads {
+  color: var(--muted);
+  font-family: v.$font-family-terminal;
+  font-size: 1.1rem;
+  line-height: 1;
+
+  @include m.respond(sm) {
+    > span {
+      display: none;
+    }
+  }
+}
+
+// Seven columns everywhere (six steps and the muted tone), so the neutrals line up too.
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: v.$space-2;
+
+  @include m.respond(sm) {
+    gap: v.$space-1;
+  }
+}
+
+.swatch {
+  display: grid;
+  gap: v.$space-1;
+  align-content: start;
+  min-width: 0;
+}
+
+.aside {
+  padding-left: v.$space-3;
+  border-left: 1px dashed var(--border);
+
+  @include m.respond(sm) {
+    padding-left: v.$space-1;
+  }
+}
+
+// The swatch colours are the palette's own and stay the same in every theme.
+.chip {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: 1px solid rgba(127, 127, 127, 0.3);
+  border-radius: v.$radius-sm;
+  cursor: pointer;
+  transition: transform v.$transition-fast;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.base .chip {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+code {
+  font-family: v.$font-family-terminal;
+  font-size: 1.2rem;
+  line-height: 1;
+
+  @include m.respond(sm) {
+    font-size: 0.95rem;
+  }
+}
+
+.recipe {
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+
+  @include m.respond(sm) {
+    display: none;
+  }
+}
+
+.base .recipe {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.steps {
+  max-width: 60ch;
+  margin-bottom: v.$space-5;
+  padding-left: v.$space-5;
+  color: var(--muted);
+
+  li + li {
+    margin-top: v.$space-2;
+  }
+}

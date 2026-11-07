@@ -1,0 +1,96 @@
+<section class="page">
+  <header class="page-header">
+    <span class="eyebrow">Mutant Odyssey</span>
+    <h1>Colour palette</h1>
+    <p>
+      Eight base colours, each mixed like paint: towards a near-black and a dark teal for the
+      shadows, towards a cream white for the lights, and with a slate grey for a muted tone. That
+      makes {{ colourCount }} colours for every sprite, background and menu of the game.
+    </p>
+  </header>
+
+  <h2 class="section-title">Ramps</h2>
+  <p class="section-text">
+    Each row runs from the darkest to the lightest step of one colour; the ringed swatch is the base
+    colour. Select a swatch to copy its code.
+  </p>
+  <div class="card sheet">
+    <div class="row heads" aria-hidden="true">
+      <span></span>
+      <div class="swatches">
+        @for (name of stepNames; track name; let last = $last) {
+          <span [class.aside]="last">{{ name }}</span>
+        }
+      </div>
+    </div>
+
+    @for (row of rows; track row.name) {
+      <div class="row">
+        <h3 class="row-name">{{ row.name }}</h3>
+        <div class="swatches">
+          @for (colour of row.swatches; track colour.hex; let last = $last) {
+            <div class="swatch" [class.aside]="last" [class.base]="colour.base">
+              <button
+                class="chip"
+                type="button"
+                [style.background]="colour.hex"
+                [attr.aria-label]="'Copy ' + colour.hex + ', ' + row.name + ' ' + colour.name"
+                (click)="copy(colour.hex)"
+              ></button>
+              <code>{{ colour.hex }}</code>
+              <span class="recipe">{{ copied() === colour.hex ? 'Copied' : colour.recipe }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+
+  <h2 class="section-title">Neutrals</h2>
+  <p class="section-text">
+    Shared by every ramp: the darkest darks, greys for fog and stone, the cream white for highlights
+    and text, and a sickly pale for dead skin.
+  </p>
+  <div class="card sheet">
+    <div class="row">
+      <h3 class="row-name">Neutrals</h3>
+      <div class="swatches">
+        @for (colour of palette.neutrals; track colour.hex) {
+          <div class="swatch" [class.base]="colour.base">
+            <button
+              class="chip"
+              type="button"
+              [style.background]="colour.hex"
+              [attr.aria-label]="'Copy ' + colour.hex + ', ' + colour.name"
+              (click)="copy(colour.hex)"
+            ></button>
+            <code>{{ colour.hex }}</code>
+            <span class="recipe">
+              {{ copied() === colour.hex ? 'Copied' : colour.name + ': ' + colour.recipe }}
+            </span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Use it in Aseprite</h2>
+  <ol class="steps">
+    <li>Download the palette file.</li>
+    <li>
+      In Aseprite's palette panel, open the options menu (the three lines above the swatches) and
+      choose <strong>Load Palette</strong>.
+    </li>
+    <li>
+      For pixel art, switch the sprite to <strong>Sprite → Color Mode → Indexed</strong>, so every
+      pixel stays one of these colours.
+    </li>
+  </ol>
+  <button class="button" type="button" (click)="download()">Download the palette (.gpl)</button>
+
+  <p class="visually-hidden" aria-live="polite">
+    @if (copied(); as hex) {
+      Copied {{ hex }}
+    }
+  </p>
+</section>

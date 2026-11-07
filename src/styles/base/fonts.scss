@@ -1,0 +1,13 @@
+// Pixel fonts from Mutant Odyssey, under the SIL Open Font License (see `public/fonts/*/OFL.txt`).
+// Browsers only download a face once a page uses it.
+@font-face {
+  font-family: 'Silkscreen';
+  src: url('/fonts/silkscreen/Silkscreen-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'VT323';
+  src: url('/fonts/vt323/VT323-Regular.ttf') format('truetype');
+  font-display: swap;
+}
