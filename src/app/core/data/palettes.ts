@@ -1,7 +1,7 @@
 import { Palette } from '../models/palette';
 
 // The colours of Mutant Odyssey; the game keeps them in `assets/palettes/mutant_odyssey.gpl`.
-// Eight base colours mixed like paint: shadows towards the dark teal and a near-black, lights
+// Nine base colours mixed like paint: shadows towards the dark teal and a near-black, lights
 // towards a cream white, muted tones with a slate grey.
 export const MUTANT_ODYSSEY_PALETTE: Palette = {
   id: 'mutant-odyssey',
@@ -90,6 +90,18 @@ export const MUTANT_ODYSSEY_PALETTE: Palette = {
         { name: 'highlight', hex: '#bfa790', recipe: '2:3 with cream' },
       ],
       muted: { name: 'muted', hex: '#605345', recipe: '1:1 with slate grey' },
+    },
+    {
+      name: 'Aqua',
+      steps: [
+        { name: 'deep', hex: '#153d3c', recipe: '1:3 with near-black' },
+        { name: 'shadow', hex: '#286f6c', recipe: '1:1 with teal' },
+        { name: 'dark', hex: '#36908a', recipe: '3:1 with teal' },
+        { name: 'base', hex: '#45b2a8', recipe: 'base colour', base: true },
+        { name: 'light', hex: '#7ac3b6', recipe: '7:3 with cream' },
+        { name: 'highlight', hex: '#aed4c4', recipe: '2:3 with cream' },
+      ],
+      muted: { name: 'muted', hex: '#4b8c85', recipe: '1:1 with slate grey' },
     },
   ],
   neutrals: [
